@@ -1,7 +1,9 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QString>
-#include <QDebug>
+#include <iostream>
+
+using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -11,7 +13,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // setting up IMU
     IMU = new QSerialPort;
-    IMU->setPortName("ttyAMA0");
+    IMU->setPortName("/dev/ttyAMA0");
     IMU->setBaudRate(QSerialPort::Baud9600);
     IMU->setParity(QSerialPort::NoParity);
     IMU->setDataBits(QSerialPort::Data8);
@@ -20,6 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(IMU,SIGNAL(readyRead()),this,SLOT(showIMUData()));
     IMUButton = false;
     count = 0;
+    connect(ui->actionClose,SIGNAL(triggered(bool)),this,SLOT(close()));
 
 
 }
@@ -32,7 +35,8 @@ MainWindow::~MainWindow()
 void MainWindow::on_i2tcheck_clicked()
 {
     if (IMUButton == false){
-        IMU->open(QIODevice::ReadWrite);
+        cout << IMU->open(QIODevice::ReadOnly) << "port openning state" << endl;
+
         IMUButton = true;
     }else{
 
@@ -46,6 +50,7 @@ void MainWindow::showIMUData()
 {
     if (count < 5){
         QString imuData = QString::fromStdString(IMU->readAll().toStdString());
+        cout << imuData.toStdString() << endl;
         d.append("\n");
         d.append(imuData);
         ui->IMUOutText->setPlainText(d);
@@ -61,3 +66,5 @@ void MainWindow::showIMUData()
 
 
 }
+
+
