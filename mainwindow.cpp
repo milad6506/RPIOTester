@@ -6,6 +6,7 @@
 #include <QString>
 #include <QStringList>
 #include <QList>
+
 using namespace std;
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -42,8 +43,8 @@ void MainWindow::on_i2tcheck_clicked()
     if (IMUButton == false){
         cout << IMU->open(QIODevice::ReadOnly) << "port openning state" << endl;
 
-        QByteArray command = QByteArray::fromStdString(QString("#osct").toStdString());
-        IMU->write(command);
+       // QByteArray command = QByteArray::fromStdString(QString("#osct").toStdString());
+        // IMU->write(command);
 
         IMUButton = true;
     }else{
@@ -74,11 +75,11 @@ void MainWindow::separateYPR(QString idata)
 {
     count ++;
     imudata.clear();
-    /*
+
     QRegExp rx("[, = \r\n]");
     QStringList angles= idata.split(rx,QString::SkipEmptyParts);
     QString toShow = QString(" yaw is %1 , pitch is %2 , roll is %3").arg(angles.at(1)).arg(angles.at(2)).arg(angles.at(3));
-
+    cout << angles.size() << " size of input" << endl;
 
     if (IMUResults.size() >= 6){
         IMUResults.removeAt(0);
@@ -92,12 +93,7 @@ void MainWindow::separateYPR(QString idata)
     }
 
     ui->IMUOutText->setPlainText(IMUTTLString);
-    */
-    if (count >15){
-        ui->IMUOutText->setPlainText(idata);
-    }else{
-        count = 0;
-    }
+
 
 
 }
