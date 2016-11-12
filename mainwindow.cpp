@@ -62,10 +62,12 @@ void MainWindow::showIMUData()
     while (!IMU->atEnd()){
         imudata.append(IMU->readAll());
     }
+    ui->IMUOutText->setPlainText(imudata);
+    /*
     QByteArray dataEnd = "\r\n";
     if (imudata.contains(dataEnd)){
         separateYPR(QString::fromStdString(imudata.toStdString()));
-    }
+    }*/
 
 
 
@@ -73,6 +75,7 @@ void MainWindow::showIMUData()
 
 void MainWindow::separateYPR(QString idata)
 {
+    /*
     count ++;
     imudata.clear();
 
@@ -92,7 +95,7 @@ void MainWindow::separateYPR(QString idata)
         IMUTTLString.append("\n");
     }
 
-    ui->IMUOutText->setPlainText(toShow);
+    ui->IMUOutText->setPlainText(toShow);*/
 
 
 
