@@ -19,6 +19,9 @@ public:
 private slots:
     void on_i2tcheck_clicked();
     void showIMUData();
+    void separateYPR(QString idata);
+
+    void on_IMUSPIRadio_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -26,6 +29,9 @@ private:
     bool IMUButton;
     QString d;
     int count;
+    QByteArray imudata;
+    QList <QString> IMUResults;
+
 };
 
 #endif // MAINWINDOW_H

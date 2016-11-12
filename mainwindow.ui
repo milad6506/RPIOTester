@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>1</number>
     </property>
     <widget class="QWidget" name="IMU2TTL">
      <attribute name="title">
@@ -68,7 +68,7 @@
      <attribute name="title">
       <string>IMU2SPI</string>
      </attribute>
-     <widget class="QRadioButton" name="radioButton_2">
+     <widget class="QRadioButton" name="IMUSPIRadio">
       <property name="geometry">
        <rect>
         <x>20</x>
@@ -79,6 +79,16 @@
       </property>
       <property name="text">
        <string>Power ON/OFF</string>
+      </property>
+     </widget>
+     <widget class="QTextBrowser" name="IMUSPITextOut">
+      <property name="geometry">
+       <rect>
+        <x>10</x>
+        <y>70</y>
+        <width>571</width>
+        <height>171</height>
+       </rect>
       </property>
      </widget>
     </widget>
