@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // setting up IMU for ttl
     IMU = new QSerialPort;
-    IMU->setPortName("/dev/ttyAMA0");
+    IMU->setPortName("ttyAMA0");
     IMU->setBaudRate(QSerialPort::Baud57600);
     IMU->setParity(QSerialPort::NoParity);
     IMU->setDataBits(QSerialPort::Data8);
@@ -41,7 +41,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_i2tcheck_clicked()
 {
-    /*
+
     if (IMUButton == false){
         cout << IMU->open(QIODevice::ReadWrite) << "port openning state" << endl;
 
@@ -54,9 +54,7 @@ void MainWindow::on_i2tcheck_clicked()
         IMU->close();
         IMUButton = false;
     }
-    */
 
-    cout << QSerialPortInfo::availablePorts().size() << endl;
 
 }
 
