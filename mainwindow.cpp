@@ -18,7 +18,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     // setting up IMU for ttl
     IMU = new QSerialPort;
-    IMU->setPortName("ttyAMA0");
+    IMU->setPortName("/dev/ttyAMA0");
     IMU->setBaudRate(QSerialPort::Baud57600);
     IMU->setParity(QSerialPort::NoParity);
     IMU->setDataBits(QSerialPort::Data8);
