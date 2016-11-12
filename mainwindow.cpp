@@ -27,6 +27,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(IMU,SIGNAL(readyRead()),this,SLOT(showIMUData()));
     IMUButton = false;
     count = 0;
+
     connect(ui->actionClose,SIGNAL(triggered(bool)),this,SLOT(close()));
 
 
@@ -40,6 +41,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_i2tcheck_clicked()
 {
+    /*
     if (IMUButton == false){
         cout << IMU->open(QIODevice::ReadWrite) << "port openning state" << endl;
 
@@ -52,6 +54,9 @@ void MainWindow::on_i2tcheck_clicked()
         IMU->close();
         IMUButton = false;
     }
+    */
+
+    cout << QSerialPortInfo::availablePorts().size() << endl;
 
 }
 
