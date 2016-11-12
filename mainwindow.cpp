@@ -92,7 +92,7 @@ void MainWindow::separateYPR(QString idata)
         IMUTTLString.append("\n");
     }
 
-    ui->IMUOutText->setPlainText(IMUTTLString);
+    ui->IMUOutText->setPlainText(toShow);
 
 
 
