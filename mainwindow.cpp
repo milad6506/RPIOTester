@@ -15,7 +15,11 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
+    QList<QSerialPortInfo> available = QSerialPortInfo::availablePorts();
+    for (int i = 0; i < available.count(); i++) {
+        cout << available.at(i).portName().toStdString() << endl;
 
+    }
     // setting up IMU for ttl
     IMU = new QSerialPort;
     IMU->setPortName("/dev/ttyAMA0");
@@ -65,7 +69,7 @@ void MainWindow::showIMUData()
     while (!IMU->atEnd()){
         imudata.append(IMU->readAll());
     }
-    ui->IMUOutText->setPlainText(imudata);
+    ui->IMUOutText->setPlainText(QString::fromStdString(imudata.toStdString()));
     /*
     QByteArray dataEnd = "\r\n";
     if (imudata.contains(dataEnd)){
