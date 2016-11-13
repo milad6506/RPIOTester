@@ -22,7 +22,7 @@ MainWindow::MainWindow(QWidget *parent) :
     }
     // setting up IMU for ttl
     IMU = new QSerialPort;
-    IMU->setPortName("/dev/ttyAMA0");
+    IMU->setPortName("ttyAMA0");
     IMU->setBaudRate(QSerialPort::Baud57600);
     IMU->setParity(QSerialPort::NoParity);
     IMU->setDataBits(QSerialPort::Data8);
@@ -69,6 +69,7 @@ void MainWindow::showIMUData()
     while (!IMU->atEnd()){
         imudata.append(IMU->readAll());
     }
+    cout << " data recieved"<< endl;
     ui->IMUOutText->setPlainText(QString::fromStdString(imudata.toStdString()));
     /*
     QByteArray dataEnd = "\r\n";
