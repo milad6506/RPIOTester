@@ -48,9 +48,7 @@ void MainWindow::on_i2tcheck_clicked()
 
     if (IMUButton == false){
         cout << IMU->open(QIODevice::ReadWrite) << "port openning state" << endl;
-        while (IMU->canReadLine()) {
-            cout << IMU->readLine().toStdString() << " recieved data" << endl;
-        }
+
        // QByteArray command = QByteArray::fromStdString(QString("#osct").toStdString());
         // IMU->write(command);
 
