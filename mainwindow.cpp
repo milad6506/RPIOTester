@@ -17,7 +17,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     QList<QSerialPortInfo> available = QSerialPortInfo::availablePorts();
     for (int i = 0; i < available.count(); i++) {
-        cout << available.at(i).portName().toStdString() << endl;
+        cout << (available.at(i).portName() == "ttyAMA0") << "port is found?" << endl;
 
     }
     // setting up IMU for ttl
@@ -48,7 +48,9 @@ void MainWindow::on_i2tcheck_clicked()
 
     if (IMUButton == false){
         cout << IMU->open(QIODevice::ReadWrite) << "port openning state" << endl;
-
+        while (IMU->canReadLine()) {
+            cout << IMU->readLine().toStdString() << " recieved data" << endl;
+        }
        // QByteArray command = QByteArray::fromStdString(QString("#osct").toStdString());
         // IMU->write(command);
 
@@ -65,12 +67,12 @@ void MainWindow::on_i2tcheck_clicked()
 void MainWindow::showIMUData()
 {
 
-
+/*
     while (!IMU->atEnd()){
         imudata.append(IMU->readAll());
-    }
+    }*/
     cout << " data recieved"<< endl;
-    ui->IMUOutText->setPlainText(QString::fromStdString(imudata.toStdString()));
+    //ui->IMUOutText->setPlainText(QString::fromStdString(imudata.toStdString()));
     /*
     QByteArray dataEnd = "\r\n";
     if (imudata.contains(dataEnd)){
