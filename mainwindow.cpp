@@ -41,6 +41,7 @@ MainWindow::~MainWindow()
 {
     delete ui;
     IMU->close();
+    delete IMU;
 }
 
 void MainWindow::on_i2tcheck_clicked()
@@ -48,9 +49,7 @@ void MainWindow::on_i2tcheck_clicked()
 
     if (IMUButton == false){
         cout << IMU->open(QIODevice::ReadWrite) << "port openning state" << endl;
-        while(IMU->canReadLine()){
-            cout << IMU->readLine().toStdString() << endl;
-        }
+
        // QByteArray command = QByteArray::fromStdString(QString("#osct").toStdString());
         // IMU->write(command);
 
@@ -67,17 +66,16 @@ void MainWindow::on_i2tcheck_clicked()
 void MainWindow::showIMUData()
 {
 
-/*
+
     while (!IMU->atEnd()){
         imudata.append(IMU->readAll());
-    }*/
-    cout << " data recieved"<< endl;
-    //ui->IMUOutText->setPlainText(QString::fromStdString(imudata.toStdString()));
-    /*
+    }
+
+
     QByteArray dataEnd = "\r\n";
     if (imudata.contains(dataEnd)){
         separateYPR(QString::fromStdString(imudata.toStdString()));
-    }*/
+    }
 
 
 
@@ -85,7 +83,7 @@ void MainWindow::showIMUData()
 
 void MainWindow::separateYPR(QString idata)
 {
-    /*
+
     count ++;
     imudata.clear();
 
@@ -105,7 +103,7 @@ void MainWindow::separateYPR(QString idata)
         IMUTTLString.append("\n");
     }
 
-    ui->IMUOutText->setPlainText(toShow);*/
+    ui->IMUOutText->setPlainText(toShow);
 
 
 
