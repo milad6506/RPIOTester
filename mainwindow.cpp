@@ -50,8 +50,8 @@ void MainWindow::on_i2tcheck_clicked()
     if (IMUButton == false){
         cout << IMU->open(QIODevice::ReadWrite) << "port openning state" << endl;
 
-       // QByteArray command = QByteArray::fromStdString(QString("#osct").toStdString());
-        // IMU->write(command);
+       QByteArray command = "#osct";
+        IMU->write(command);
 
         IMUButton = true;
     }else{
@@ -89,10 +89,10 @@ void MainWindow::separateYPR(QString idata)
 
     QRegExp rx("[, = \r\n]");
     QStringList angles= idata.split(rx,QString::SkipEmptyParts);
-    QString toShow = QString(" yaw is %1 , pitch is %2 , roll is %3").arg(angles.at(1)).arg(angles.at(2)).arg(angles.at(3));
-    cout << angles.size() << " size of input" << endl;
+    //QString toShow = QString(" yaw is %1 , pitch is %2 , roll is %3").arg(angles.at(1)).arg(angles.at(2)).arg(angles.at(3));
+    QString toShow = idata;
 
-    if (IMUResults.size() >= 6){
+    if (IMUResults.size() >= 10){
         IMUResults.removeAt(0);
 
     }
