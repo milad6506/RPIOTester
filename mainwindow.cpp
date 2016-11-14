@@ -15,11 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    QList<QSerialPortInfo> available = QSerialPortInfo::availablePorts();
-    for (int i = 0; i < available.count(); i++) {
-        cout << (available.at(i).portName() == "ttyAMA0") << "port is found?" << endl;
-
-    }
+    ui->IMUOutText->setFontPointSize(5);
     // setting up IMU for ttl
     IMU = new QSerialPort;
     IMU->setPortName("ttyAMA0");
@@ -49,10 +45,8 @@ void MainWindow::on_i2tcheck_clicked()
 
     if (IMUButton == false){
         cout << IMU->open(QIODevice::ReadWrite) << "port openning state" << endl;
-        while(IMU->canReadLine()){
 
-        }
-        QByteArray command = "#osct";
+        QByteArray command = "#oscb";
         IMU->write(command);
 
         IMUButton = true;
@@ -93,8 +87,9 @@ void MainWindow::separateYPR(QString idata)
     QStringList angles= idata.split(rx,QString::SkipEmptyParts);
     //QString toShow = QString(" yaw is %1 , pitch is %2 , roll is %3").arg(angles.at(1)).arg(angles.at(2)).arg(angles.at(3));
     QString toShow = idata;
+    cout << idata.toStdString() << " data" << endl;
 
-    if (IMUResults.size() >= 10){
+    if (IMUResults.size() >= 6){
         IMUResults.removeAt(0);
 
     }
