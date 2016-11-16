@@ -6,6 +6,12 @@
 #include <QString>
 #include <QStringList>
 #include <QList>
+#include <linux/spi/spidev.h>
+#include <fcntl.h>
+#include <unistd.h>
+#include <sys/ioctl.h>
+#include <linux/types.h>
+
 
 using namespace std;
 
@@ -27,10 +33,9 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(IMU,SIGNAL(readyRead()),this,SLOT(showIMUData()));
     IMUButton = false;
     count = 0;
-
     connect(ui->actionClose,SIGNAL(triggered(bool)),this,SLOT(close()));
-
-
+    ui->sentence->setDisabled(true);
+    defcom = "#YPR";
 }
 
 MainWindow::~MainWindow()
@@ -45,13 +50,8 @@ void MainWindow::on_i2tcheck_clicked()
 
     if (IMUButton == false){
         cout << IMU->open(QIODevice::ReadWrite) << "port openning state" << endl;
-
-        QByteArray command = "#oscb";
-        IMU->write(command);
-
         IMUButton = true;
     }else{
-
         IMU->close();
         IMUButton = false;
     }
@@ -112,4 +112,25 @@ void MainWindow::on_IMUSPIRadio_clicked()
 {
     // SPI Nshould be powered on
 
+
+}
+
+void MainWindow::on_sentence_clicked()
+{
+    QString comm =  ui->sentenceIn->text();
+
+    QByteArray command = "#";
+
+    command.append(comm);
+    if (comm.size()==0){
+        command = QByteArray::fromStdString(defcom.toStdString());
+    }
+    while(IMU->canReadLine()){
+    }
+    IMU->write(command);
+}
+
+void MainWindow::on_sentenceIn_textEdited(const QString &arg1)
+{
+    ui->sentence->setEnabled(true);
 }
