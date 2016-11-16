@@ -27,6 +27,11 @@ private slots:
 
     void on_sentenceIn_textEdited(const QString &arg1);
 
+
+    void on_filename_textEdited(const QString &arg1);
+
+    void on_saveCheck_clicked(bool checked);
+
 private:
     Ui::MainWindow *ui;
     QSerialPort* IMU;
@@ -36,6 +41,13 @@ private:
     QByteArray imudata;
     QList <QString> IMUResults;
     QString defcom;
+    bool saveCheckbox = false;
+    QFile logFile;
+    // variables
+    QString ax= "a",ay= "a",az= "a",magx= "a",magy= "a",magz= "a",gx= "a",gy= "a",gz = "a";
+
+    // variables
+
 };
 
 #endif // MAINWINDOW_H

@@ -35,58 +35,82 @@
        <rect>
         <x>0</x>
         <y>10</y>
-        <width>131</width>
+        <width>141</width>
         <height>22</height>
        </rect>
       </property>
       <property name="text">
-       <string>Power ON/OFF</string>
+       <string>open/close port</string>
       </property>
      </widget>
      <widget class="QTextBrowser" name="IMUOutText">
       <property name="geometry">
        <rect>
         <x>10</x>
-        <y>40</y>
-        <width>301</width>
+        <y>70</y>
+        <width>221</width>
         <height>221</height>
        </rect>
-      </property>
-     </widget>
-     <widget class="QLabel" name="label">
-      <property name="geometry">
-       <rect>
-        <x>340</x>
-        <y>10</y>
-        <width>67</width>
-        <height>17</height>
-       </rect>
-      </property>
-      <property name="text">
-       <string>sentences</string>
       </property>
      </widget>
      <widget class="QWidget" name="">
       <property name="geometry">
        <rect>
-        <x>340</x>
-        <y>60</y>
-        <width>251</width>
-        <height>29</height>
+        <x>240</x>
+        <y>10</y>
+        <width>341</width>
+        <height>31</height>
        </rect>
       </property>
-      <layout class="QGridLayout" name="gridLayout_6">
-       <item row="0" column="0">
-        <widget class="QLineEdit" name="sentenceIn">
-         <property name="placeholderText">
-          <string>ex. #oscb</string>
+      <layout class="QHBoxLayout" name="horizontalLayout">
+       <item>
+        <widget class="QLabel" name="label">
+         <property name="text">
+          <string>sentences</string>
          </property>
         </widget>
        </item>
-       <item row="0" column="1">
-        <widget class="QPushButton" name="sentence">
+       <item>
+        <layout class="QGridLayout" name="gridLayout_6">
+         <item row="0" column="0">
+          <widget class="QLineEdit" name="sentenceIn">
+           <property name="placeholderText">
+            <string>ex. #oscb</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="sentence">
+           <property name="text">
+            <string>Enter</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="">
+      <property name="geometry">
+       <rect>
+        <x>250</x>
+        <y>140</y>
+        <width>214</width>
+        <height>29</height>
+       </rect>
+      </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_2">
+       <item>
+        <widget class="QCheckBox" name="saveCheck">
          <property name="text">
-          <string>Enter</string>
+          <string>save</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLineEdit" name="filename">
+         <property name="placeholderText">
+          <string>enter file name</string>
          </property>
         </widget>
        </item>
@@ -370,15 +394,6 @@
     <addaction name="actionClose"/>
    </widget>
    <addaction name="menuAccessories"/>
-  </widget>
-  <widget class="QStatusBar" name="statusBar"/>
-  <widget class="QToolBar" name="mainToolBar">
-   <attribute name="toolBarArea">
-    <enum>TopToolBarArea</enum>
-   </attribute>
-   <attribute name="toolBarBreak">
-    <bool>false</bool>
-   </attribute>
   </widget>
   <action name="actionClose">
    <property name="text">
