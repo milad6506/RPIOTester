@@ -76,7 +76,10 @@ void MainWindow::showIMUData()
     QByteArray dataEnd = "\r\n";
     if (imudata.contains(dataEnd)){
         int pos = imudata.indexOf("\r\n");
-        QByteArray resu = imudata(imudata.begin(),imudata.begin()+pos);
+        QByteArray resu;
+        for (int i=0;i<=pos;i++){
+            resu.append(imudata[i]);
+        }
         cout << "the r d" << resu.toStdString() << endl;
         //separateYPR(QString::fromStdString(imudata.toStdString()));
     }
@@ -158,39 +161,6 @@ void MainWindow::on_saveCheck_clicked(bool checked)
                 cout << "" << endl;
 
             }
-
-            /*if (angles.contains("#A-R")){
-                int a = angles.indexOf("#A-R");
-                ax = angles.at(a+1);
-                ay = angles.at(a+2);
-                az = angles.at(a+3);
-            }
-            if (angles.contains("#G-R")){
-                int g = angles.indexOf("#G-R");
-                gx = angles.at(g+1);
-                gy = angles.at(g+2);
-                gz = angles.at(g+3);
-            }
-            if (angles.contains("#M-R")){
-                int m = angles.indexOf("#M-R");
-                magx = angles.at(m+1);
-                magy = angles.at(m+2);
-                magz = angles.at(m+3);
-            }/*
-            /*
-            if (angles.at(0) == "#A-R"){
-                ax = angles.at(1);
-                ay = angles.at(2);
-                az = angles.at(3);
-            }else if (angles.at(0) == "#G-R"){
-                gx = angles.at(1);
-                gy = angles.at(2);
-                gz = angles.at(3);
-            }else if (angles.at(0) == "#M-R"){
-                magx = angles.at(1);
-                magy = angles.at(2);
-                magz = angles.at(3);
-            }*/
 
             if((ax != t)&&(ay != t)&&(az != t)&&(magx != t)&&(magy != t)&&(magz != t)&&(gx != t)&&(gy != t)&&(gz != t)){
                 QString line = QString("%1,%2,%3,%4,%5,%6,%7,%8,%9 \r\n").arg(ax).arg(ay).arg(az).arg(magx).arg(magy).arg(magz).arg(gx).arg(gy).arg(gz);
