@@ -138,8 +138,7 @@ void MainWindow::on_saveCheck_clicked(bool checked)
         logFile.write(QByteArray::fromStdString(firstLine.toStdString()));
         QRegExp rx("[, = \r\n]");
         for (int i=0;i<mLog.size();i++){
-            ui->messageNumber->display(i);
-            ui->IMUOutText->setPlainText(mLog[i]);
+            cout << mLog[i].toStdString() << endl;
             QStringList angles= mLog[i].split(rx,QString::SkipEmptyParts);
             if (angles.at(0) == "#A-R"){
                 ax = angles.at(1);
@@ -158,7 +157,7 @@ void MainWindow::on_saveCheck_clicked(bool checked)
             if ((ax != "a")&&(ay != "a")&&(az != "a")&&(gx != "a")&&(gy != "a")&&(gz != "a")&&(magx != "a")&&(magy != "a")&&(magz != "a")){
                 QString line = QString("%1,%2,%3,%4,%5,%6,%7,%8,%9 \r\n").arg(ax).arg(ay).arg(az).arg(magx).arg(magy).arg(magz).arg(gx).arg(gy).arg(gz);
                 logFile.write(QByteArray::fromStdString(line.toStdString()));
-                ui->IMUOutText->setPlainText(line);
+                cout << line.toStdString() << endl;
                 ax = "a";ay = "a";az = "a";gx = "a";gy = "a";gz = "a";magx = "a";magy = "a";magz = "z";
             }
         }
