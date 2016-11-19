@@ -139,12 +139,8 @@ void MainWindow::on_saveCheck_clicked(bool checked)
         QRegExp rx("[, = \r\n]");
 
         for (int i=0;i<mLog.size();i++){
-            logFile.write(QByteArray::fromStdString(mLog[i].toStdString()));
-
-
 
             QStringList angles= mLog[i].split(rx,QString::SkipEmptyParts);
-            cout << angles.size() << angles.at(0).toStdString() << endl;
             if (angles.at(0) == "#A-R"){
                 ax = angles.at(1);
                 ay = angles.at(2);
@@ -159,7 +155,7 @@ void MainWindow::on_saveCheck_clicked(bool checked)
                 magz = angles.at(3);
             }
 
-            if(!((ax.compare("a"))&&(ay.compare("a"))&&(az.compare("a"))&&(gx.compare("a"))&&(gy.compare("a"))&&(gz.compare("a"))&&(magx.compare("a"))&&(magy.compare("a"))&&(magz.compare("a")))){
+            if(((ax.compare("a"))&&(ay.compare("a"))&&(az.compare("a"))&&(gx.compare("a"))&&(gy.compare("a"))&&(gz.compare("a"))&&(magx.compare("a"))&&(magy.compare("a"))&&(magz.compare("a")))){
                 QString line = QString("%1,%2,%3,%4,%5,%6,%7,%8,%9 \r\n").arg(ax).arg(ay).arg(az).arg(magx).arg(magy).arg(magz).arg(gx).arg(gy).arg(gz);
                 logFile.write(QByteArray::fromStdString(line.toStdString()));
                 cout << line.toStdString() << endl;
