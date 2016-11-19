@@ -155,6 +155,10 @@ void MainWindow::on_saveCheck_clicked(bool checked)
                 magy = angles.at(2);
                 magz = angles.at(3);
             }
+            for (int k=0;k<angles.size();k++){
+                cout << angles.at(k).toStdString();
+            }
+            cout << "" << endl;
 
             if((ax != t)&&(ay != t)&&(az != t)&&(magx != t)&&(magy != t)&&(magz != t)&&(gx != t)&&(gy != t)&&(gz != t)){
                 QString line = QString("%1,%2,%3,%4,%5,%6,%7,%8,%9 \r\n").arg(ax).arg(ay).arg(az).arg(magx).arg(magy).arg(magz).arg(gx).arg(gy).arg(gz);
