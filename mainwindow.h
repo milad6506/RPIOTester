@@ -34,7 +34,8 @@ private slots:
 
     void on_saveCheck_clicked(bool checked);
 
-    void on_spinBox_valueChanged(int arg1);
+
+    void on_checkersen_textEdited(const QString &arg1);
 
 private:
     Ui::MainWindow *ui;

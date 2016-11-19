@@ -195,7 +195,8 @@ void MainWindow::on_saveCheck_clicked(bool checked)
 
 }
 
-void MainWindow::on_spinBox_valueChanged(int arg1)
+
+void MainWindow::on_checkersen_textEdited(const QString &arg1)
 {
-    ui->IMUOutText->setPlainText(mLog[arg1]);
+    ui->IMUOutText->setPlainText(mLog[ arg1.toInt()]);
 }
