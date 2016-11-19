@@ -34,6 +34,8 @@ private slots:
 
     void on_saveCheck_clicked(bool checked);
 
+    void on_spinBox_valueChanged(int arg1);
+
 private:
     Ui::MainWindow *ui;
     QSerialPort* IMU;
