@@ -142,7 +142,21 @@ void MainWindow::on_saveCheck_clicked(bool checked)
         for (int i=0;i<mLog.size();i++){
 
             QStringList angles= mLog[i].split(rx,QString::SkipEmptyParts);
-            if (angles.contains("#A-R")){
+            if (angles.size() == 12){
+                for (int i=0;i<angles.size();i++){
+                    cout << angles.at(i).toStdString() << " " << i << " " ;
+                }
+                cout << "" << endl;
+            }else{
+                cout << angles.size() << " angle size" << endl;
+                for (int i=0;i<angles.size();i++){
+                    cout << angles.at(i).toStdString() << " " << i << " " ;
+                }
+                cout << "" << endl;
+
+            }
+
+            /*if (angles.contains("#A-R")){
                 int a = angles.indexOf("#A-R");
                 ax = angles.at(a+1);
                 ay = angles.at(a+2);
@@ -159,7 +173,7 @@ void MainWindow::on_saveCheck_clicked(bool checked)
                 magx = angles.at(m+1);
                 magy = angles.at(m+2);
                 magz = angles.at(m+3);
-            }
+            }/*
             /*
             if (angles.at(0) == "#A-R"){
                 ax = angles.at(1);
@@ -196,7 +210,3 @@ void MainWindow::on_saveCheck_clicked(bool checked)
 }
 
 
-void MainWindow::on_checkersen_textEdited(const QString &arg1)
-{
-    ui->IMUOutText->setPlainText(mLog[ arg1.toInt()]);
-}

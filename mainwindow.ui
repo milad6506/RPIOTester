@@ -126,16 +126,6 @@
        </rect>
       </property>
      </widget>
-     <widget class="QLineEdit" name="checkersen">
-      <property name="geometry">
-       <rect>
-        <x>250</x>
-        <y>80</y>
-        <width>113</width>
-        <height>27</height>
-       </rect>
-      </property>
-     </widget>
     </widget>
     <widget class="QWidget" name="IMU2SPI">
      <attribute name="title">
