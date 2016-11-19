@@ -136,9 +136,13 @@ void MainWindow::on_saveCheck_clicked(bool checked)
         qDebug()<< logFile.open(QFile::ReadWrite);
         QString firstLine = QString("log data name = %1 started at %2 (h) %3 (m) %4 (sec) %5(msec) \r\n").arg(ui->filename->text()).arg(QTime::currentTime().hour()).arg(QTime::currentTime().minute()).arg(QTime::currentTime().second()).arg(QTime::currentTime().msec());
         logFile.write(QByteArray::fromStdString(firstLine.toStdString()));
-        QRegExp rx("[, = \r\n]");
+        //QRegExp rx("[, = \r\n]");
 
         for (int i=0;i<mLog.size();i++){
+            logFile.write(QByteArray::fromStdString(mLog[i].toStdString()));
+
+
+            /*
             QStringList angles= mLog[i].split(rx,QString::SkipEmptyParts);
             cout << angles.size() << angles.at(0).toStdString() << endl;
             if (angles.at(0) == "#A-R"){
@@ -161,6 +165,7 @@ void MainWindow::on_saveCheck_clicked(bool checked)
                 cout << line.toStdString() << endl;
                 ax = "a";ay = "a";az = "a";gx = "a";gy = "a";gz = "a";magx = "a";magy = "a";magz = "z";
             }
+            */
         }
         ui->IMUOutText->setPlainText("saving finished");
 
