@@ -137,6 +137,7 @@ void MainWindow::on_saveCheck_clicked(bool checked)
         QString firstLine = QString("log data name = %1 started at %2 (h) %3 (m) %4 (sec) %5(msec) \r\n").arg(ui->filename->text()).arg(QTime::currentTime().hour()).arg(QTime::currentTime().minute()).arg(QTime::currentTime().second()).arg(QTime::currentTime().msec());
         logFile.write(QByteArray::fromStdString(firstLine.toStdString()));
         QRegExp rx("[, = \r\n]");
+        QString t = "a";
 
         for (int i=0;i<mLog.size();i++){
 
@@ -155,7 +156,7 @@ void MainWindow::on_saveCheck_clicked(bool checked)
                 magz = angles.at(3);
             }
 
-            if(((ax.compare("a"))&&(ay.compare("a"))&&(az.compare("a"))&&(gx.compare("a"))&&(gy.compare("a"))&&(gz.compare("a"))&&(magx.compare("a"))&&(magy.compare("a"))&&(magz.compare("a")))){
+            if((ax != t)&&(ay != t)&&(az != t)&&(magx != t)&&(magy != t)&&(magz != t)&&(gx != t)&&(gy != t)&&(gz != t)){
                 QString line = QString("%1,%2,%3,%4,%5,%6,%7,%8,%9 \r\n").arg(ax).arg(ay).arg(az).arg(magx).arg(magy).arg(magz).arg(gx).arg(gy).arg(gz);
                 logFile.write(QByteArray::fromStdString(line.toStdString()));
                 cout << line.toStdString() << endl;
