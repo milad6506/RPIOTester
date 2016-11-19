@@ -3,6 +3,8 @@
 
 #include <QMainWindow>
 #include <QtSerialPort/QtSerialPort>
+#include <imuworker.h>
+#include <QThread>
 
 namespace Ui {
 class MainWindow;
@@ -43,10 +45,14 @@ private:
     QString defcom;
     bool saveCheckbox = false;
     QFile logFile;
+    QList <QString> mLog;
     // variables
     QString ax= "a",ay= "a",az= "a",magx= "a",magy= "a",magz= "a",gx= "a",gy= "a",gz = "a";
-
     // variables
+    imuWorker* imuProcessor;
+    QThread* imuProcessingThread;
+
+
 
 };
 

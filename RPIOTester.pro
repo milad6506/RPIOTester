@@ -14,8 +14,10 @@ TEMPLATE = app
 
 
 SOURCES += main.cpp\
-        mainwindow.cpp
+        mainwindow.cpp \
+    imuworker.cpp
 
-HEADERS  += mainwindow.h
+HEADERS  += mainwindow.h \
+    imuworker.h
 
 FORMS    += mainwindow.ui

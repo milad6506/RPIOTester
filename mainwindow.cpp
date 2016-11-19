@@ -85,46 +85,9 @@ void MainWindow::separateYPR(QString idata)
 
     count ++;
     imudata.clear();
-
-    QRegExp rx("[, = \r\n]");
-    QStringList angles= idata.split(rx,QString::SkipEmptyParts);
-    QString toShow = idata;
-    cout << idata.toStdString() << " data" << endl;
-
-    if (IMUResults.size() >= 20){
-        IMUResults.removeAt(0);
-
-    }
-    IMUResults.append(toShow);
-    QString IMUTTLString;
-    for (int i=0;i<IMUResults.size();i++){
-        IMUTTLString.append(IMUResults[i]);
-        IMUTTLString.append("\n");
-    }
-
-    ui->IMUOutText->setPlainText(IMUTTLString);
-    if (angles.at(0) == "#A-R"){
-        ax = angles.at(1);
-        ay = angles.at(2);
-        az = angles.at(3);
-    }else if (angles.at(0) == "#G-R"){
-        gx = angles.at(1);
-        gy = angles.at(2);
-        gz = angles.at(3);
-    }else if (angles.at(0) == "#M-R"){
-        magx = angles.at(1);
-        magy = angles.at(2);
-        magz = angles.at(3);
-    }
-    if (saveCheckbox == true){
-        if ((ax != "a")&&(ay != "a")&&(az != "a")&&(gx != "a")&&(gy != "a")&&(gz != "a")&&(magx != "a")&&(magy != "a")&&(magz != "a")){
-            QString line = QString("%1\t%2\t%3\t%4\t%5\t%6\t%7\t%8\t%9\t \r\n").arg(ax).arg(ay).arg(az).arg(magx).arg(magy).arg(magz).arg(gx).arg(gy).arg(gz);
-            logFile.write(QByteArray::fromStdString(line.toStdString()));
-            ax = "a";ay = "a";az = "a";gx = "a";gy = "a";gz = "a";magx = "a";magy = "a";magz = "z";
-        }
-    }
-
-
+    ui->messageNumber->display(count);
+    mLog.append(idata);
+    ui->IMUOutText->setPlainText(idata);
 
 }
 
@@ -171,10 +134,36 @@ void MainWindow::on_saveCheck_clicked(bool checked)
         qDebug()<< logFile.open(QFile::ReadWrite);
         QString firstLine = QString("log data name = %1 started at %2 (h) %3 (m) %4 (sec) %5(msec) \r\n").arg(ui->filename->text()).arg(QTime::currentTime().hour()).arg(QTime::currentTime().minute()).arg(QTime::currentTime().second()).arg(QTime::currentTime().msec());
         logFile.write(QByteArray::fromStdString(firstLine.toStdString()));
+        QRegExp rx("[, = \r\n]");
+        for (int i=0;i<mLog.size();i++){
+            QStringList angles= mLog[i].split(rx,QString::SkipEmptyParts);
+            if (angles.at(0) == "#A-R"){
+                ax = angles.at(1);
+                ay = angles.at(2);
+                az = angles.at(3);
+            }else if (angles.at(0) == "#G-R"){
+                gx = angles.at(1);
+                gy = angles.at(2);
+                gz = angles.at(3);
+            }else if (angles.at(0) == "#M-R"){
+                magx = angles.at(1);
+                magy = angles.at(2);
+                magz = angles.at(3);
+            }
+
+            if ((ax != "a")&&(ay != "a")&&(az != "a")&&(gx != "a")&&(gy != "a")&&(gz != "a")&&(magx != "a")&&(magy != "a")&&(magz != "a")){
+                QString line = QString("%1,%2,%3,%4,%5,%6,%7,%8,%9 \r\n").arg(ax).arg(ay).arg(az).arg(magx).arg(magy).arg(magz).arg(gx).arg(gy).arg(gz);
+                logFile.write(QByteArray::fromStdString(line.toStdString()));
+                ax = "a";ay = "a";az = "a";gx = "a";gy = "a";gz = "a";magx = "a";magy = "a";magz = "z";
+            }
+        }
 
     }else{
         QString lastLine  = QString("log data name = %1 ended at %2 (h) %3 (m) %4 (sec) %5 (msec) \r\n").arg(ui->filename->text()).arg(QTime::currentTime().hour()).arg(QTime::currentTime().minute()).arg(QTime::currentTime().second()).arg(QTime::currentTime().msec());
         logFile.write(QByteArray::fromStdString(lastLine.toStdString()));
         logFile.close();
+        mLog.clear();
     }
+
+
 }
