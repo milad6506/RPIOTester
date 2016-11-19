@@ -137,9 +137,10 @@ void MainWindow::on_saveCheck_clicked(bool checked)
         QString firstLine = QString("log data name = %1 started at %2 (h) %3 (m) %4 (sec) %5(msec) \r\n").arg(ui->filename->text()).arg(QTime::currentTime().hour()).arg(QTime::currentTime().minute()).arg(QTime::currentTime().second()).arg(QTime::currentTime().msec());
         logFile.write(QByteArray::fromStdString(firstLine.toStdString()));
         QRegExp rx("[, = \r\n]");
+
         for (int i=0;i<mLog.size();i++){
-            cout << mLog[i].toStdString() << endl;
             QStringList angles= mLog[i].split(rx,QString::SkipEmptyParts);
+            cout << angles.size() << angles.at(0).toStdString() << endl;
             if (angles.at(0) == "#A-R"){
                 ax = angles.at(1);
                 ay = angles.at(2);
