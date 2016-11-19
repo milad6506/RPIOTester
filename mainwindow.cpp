@@ -157,6 +157,7 @@ void MainWindow::on_saveCheck_clicked(bool checked)
                 ax = "a";ay = "a";az = "a";gx = "a";gy = "a";gz = "a";magx = "a";magy = "a";magz = "z";
             }
         }
+        ui->IMUOutText->setPlainText("saving finished");
 
     }else{
         QString lastLine  = QString("log data name = %1 ended at %2 (h) %3 (m) %4 (sec) %5 (msec) \r\n").arg(ui->filename->text()).arg(QTime::currentTime().hour()).arg(QTime::currentTime().minute()).arg(QTime::currentTime().second()).arg(QTime::currentTime().msec());
