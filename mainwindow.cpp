@@ -75,7 +75,10 @@ void MainWindow::showIMUData()
 
     QByteArray dataEnd = "\r\n";
     if (imudata.contains(dataEnd)){
-        separateYPR(QString::fromStdString(imudata.toStdString()));
+        int pos = imudata.indexOf("\r\n");
+        QByteArray resu = imudata(imudata.begin(),imudata.begin()+pos);
+        cout << "the r d" << resu.toStdString() << endl;
+        //separateYPR(QString::fromStdString(imudata.toStdString()));
     }
 
 
