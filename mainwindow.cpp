@@ -68,8 +68,8 @@ void MainWindow::showIMUData()
 {
 
 
-    while (!IMU->atEnd()){
-        imudata.append(IMU->readAll());
+    while (IMU->canReadLine()){
+        imudata.append(IMU->readLine());
     }
 
 
@@ -88,8 +88,8 @@ void MainWindow::separateYPR(QString idata)
     count ++;
     imudata.clear();
     ui->messageNumber->display(count);
-    mLog.append(idata);
     ui->IMUOutText->setPlainText(idata);
+
 
 }
 
