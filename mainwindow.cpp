@@ -38,7 +38,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->sentence->setDisabled(true);
     defcom = "#YPR";
     ui->saveCheck->setDisabled(true);
-
+    imuProcessingThread = new QThread;
+    imuProcessor = new imuWorker;
+    connect(imuProcessingThread,SIGNAL(finished()),imuProcessor,SLOT(deleteLater()));
+    connect(this,SIGNAL(dataReady(QString)),imuProcessor,SLOT(processData(QString)));
+    imuProcessingThread->start();
 }
 
 MainWindow::~MainWindow()
@@ -46,6 +50,8 @@ MainWindow::~MainWindow()
     delete ui;
     IMU->close();
     delete IMU;
+    imuProcessingThread->wait();
+    imuProcessingThread->quit();
 }
 
 void MainWindow::on_i2tcheck_clicked()
@@ -75,29 +81,20 @@ void MainWindow::showIMUData()
 
     QByteArray dataEnd = "\r\n";
     if (imudata.contains(dataEnd)){
-        int pos = imudata.indexOf("\r\n");
-        QByteArray resu;
-        for (int i=0;i<=pos;i++){
-            resu.append(imudata[i]);
-        }
-        cout << "the r d" << resu.toStdString() << endl;
-        //separateYPR(QString::fromStdString(imudata.toStdString()));
+        ui->messageNumber->display(count);
+        ui->IMUOutText->setPlainText(QString::fromStdString(imudata.toStdString()));
+        QString tbs = QString::fromStdString(imudata.toStdString());
+        imudata.clear();
+        emit dataReady(tbs);
+
+
     }
 
 
 
 }
 
-void MainWindow::separateYPR(QString idata)
-{
 
-    count ++;
-    imudata.clear();
-    ui->messageNumber->display(count);
-    ui->IMUOutText->setPlainText(idata);
-
-
-}
 
 
 
@@ -142,35 +139,7 @@ void MainWindow::on_saveCheck_clicked(bool checked)
         qDebug()<< logFile.open(QFile::ReadWrite);
         QString firstLine = QString("log data name = %1 started at %2 (h) %3 (m) %4 (sec) %5(msec) \r\n").arg(ui->filename->text()).arg(QTime::currentTime().hour()).arg(QTime::currentTime().minute()).arg(QTime::currentTime().second()).arg(QTime::currentTime().msec());
         logFile.write(QByteArray::fromStdString(firstLine.toStdString()));
-        QRegExp rx("[, = \r\n]");
-        QString t = "a";
 
-        for (int i=0;i<mLog.size();i++){
-
-            QStringList angles= mLog[i].split(rx,QString::SkipEmptyParts);
-            if (angles.size() == 12){
-                for (int i=0;i<angles.size();i++){
-                    cout << angles.at(i).toStdString() << " " << i << " " ;
-                }
-                cout << "" << endl;
-            }else{
-                cout << angles.size() << " angle size" << endl;
-                for (int i=0;i<angles.size();i++){
-                    cout << angles.at(i).toStdString() << " " << i << " " ;
-                }
-                cout << "" << endl;
-
-            }
-
-            if((ax != t)&&(ay != t)&&(az != t)&&(magx != t)&&(magy != t)&&(magz != t)&&(gx != t)&&(gy != t)&&(gz != t)){
-                QString line = QString("%1,%2,%3,%4,%5,%6,%7,%8,%9 \r\n").arg(ax).arg(ay).arg(az).arg(magx).arg(magy).arg(magz).arg(gx).arg(gy).arg(gz);
-                logFile.write(QByteArray::fromStdString(line.toStdString()));
-                cout << line.toStdString() << endl;
-                ax = "a";ay = "a";az = "a";gx = "a";gy = "a";gz = "a";magx = "a";magy = "a";magz = "a";
-            }
-
-        }
-        ui->IMUOutText->setPlainText("saving finished");
 
     }else{
         QString lastLine  = QString("log data name = %1 ended at %2 (h) %3 (m) %4 (sec) %5 (msec) \r\n").arg(ui->filename->text()).arg(QTime::currentTime().hour()).arg(QTime::currentTime().minute()).arg(QTime::currentTime().second()).arg(QTime::currentTime().msec());

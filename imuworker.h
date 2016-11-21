@@ -12,6 +12,7 @@ public:
 signals:
 
 public slots:
+    void processData(QString imuText);
 };
 
 #endif // IMUWORKER_H

@@ -21,7 +21,6 @@ public:
 private slots:
     void on_i2tcheck_clicked();
     void showIMUData();
-    void separateYPR(QString idata);
 
     void on_IMUSPIRadio_clicked();
 
@@ -53,7 +52,9 @@ private:
     // variables
     imuWorker* imuProcessor;
     QThread* imuProcessingThread;
+signals:
 
+    void dataReady(QString imuText);
 
 
 };
