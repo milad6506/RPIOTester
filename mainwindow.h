@@ -45,16 +45,13 @@ private:
     QList <QString> IMUResults;
     QString defcom;
     bool saveCheckbox = false;
-    QFile logFile;
-    QList <QString> mLog;
-    // variables
-    QString ax= "a",ay= "a",az= "a",magx= "a",magy= "a",magz= "a",gx= "a",gy= "a",gz = "a";
-    // variables
+
     imuWorker* imuProcessor;
     QThread* imuProcessingThread;
 signals:
 
     void dataReady(QString imuText);
+    void savingState(QString state);
 
 
 };

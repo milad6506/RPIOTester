@@ -41,8 +41,7 @@ MainWindow::MainWindow(QWidget *parent) :
     imuProcessingThread = new QThread;
     imuProcessor = new imuWorker;
     connect(imuProcessingThread,SIGNAL(finished()),imuProcessor,SLOT(deleteLater()));
-    connect(this,SIGNAL(dataReady(QString)),imuProcessor,SLOT(processData(QString)));
-    imuProcessingThread->start();
+    connect(this,SIGNAL(dataReady(QString)),imuProcessor,SLOT(processData(QString)),Qt::QueuedConnection);
 }
 
 MainWindow::~MainWindow()
@@ -50,21 +49,29 @@ MainWindow::~MainWindow()
     delete ui;
     IMU->close();
     delete IMU;
-    imuProcessingThread->wait();
-    imuProcessingThread->quit();
+
 }
 
 void MainWindow::on_i2tcheck_clicked()
 {
 
     if (IMUButton == false){
+
         cout << IMU->open(QIODevice::ReadWrite) << "port openning state" << endl;
         IMUButton = true;
+        qDebug() << 0;
+        imuProcessingThread->start();
+
+        qDebug() << 1;
+
     }else{
         while (IMU->canReadLine()) {
         }
         IMU->close();
         IMUButton = false;
+        qDebug() << 2;
+        imuProcessingThread->quit();
+
     }
 
 
@@ -81,6 +88,7 @@ void MainWindow::showIMUData()
 
     QByteArray dataEnd = "\r\n";
     if (imudata.contains(dataEnd)){
+        count++;
         ui->messageNumber->display(count);
         ui->IMUOutText->setPlainText(QString::fromStdString(imudata.toStdString()));
         QString tbs = QString::fromStdString(imudata.toStdString());
@@ -133,21 +141,11 @@ void MainWindow::on_filename_textEdited(const QString &arg1)
 
 void MainWindow::on_saveCheck_clicked(bool checked)
 {
-    saveCheckbox = checked;
-    if (checked == true){
-        logFile.setFileName(ui->filename->text());
-        qDebug()<< logFile.open(QFile::ReadWrite);
-        QString firstLine = QString("log data name = %1 started at %2 (h) %3 (m) %4 (sec) %5(msec) \r\n").arg(ui->filename->text()).arg(QTime::currentTime().hour()).arg(QTime::currentTime().minute()).arg(QTime::currentTime().second()).arg(QTime::currentTime().msec());
-        logFile.write(QByteArray::fromStdString(firstLine.toStdString()));
-
-
+    if (checked){
+        emit savingState(ui->filename->text());
     }else{
-        QString lastLine  = QString("log data name = %1 ended at %2 (h) %3 (m) %4 (sec) %5 (msec) \r\n").arg(ui->filename->text()).arg(QTime::currentTime().hour()).arg(QTime::currentTime().minute()).arg(QTime::currentTime().second()).arg(QTime::currentTime().msec());
-        logFile.write(QByteArray::fromStdString(lastLine.toStdString()));
-        logFile.close();
-        mLog.clear();
+        emit savingState("false");
     }
-
 
 }
 
