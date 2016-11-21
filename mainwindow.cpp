@@ -85,8 +85,8 @@ void MainWindow::showIMUData()
     }
 
 
-    QByteArray dataEnd = "\r\n";
-    if (imudata.contains(dataEnd)){
+    //QByteArray dataEnd = "\r\n";
+    //if (imudata.contains(dataEnd)){
         count++;
         ui->messageNumber->display(count);
         ui->IMUOutText->setPlainText(QString::fromStdString(imudata.toStdString()));
@@ -95,7 +95,7 @@ void MainWindow::showIMUData()
         emit dataReady(tbs);
 
 
-    }
+    //}
 
 
 

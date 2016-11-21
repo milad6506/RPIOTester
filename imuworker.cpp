@@ -54,6 +54,7 @@ void imuWorker::saveData(QString state)
         logFile.open(QFile::ReadWrite);
         QString firstLine = QString("log data name = %1 started at %2 (h) %3 (m) %4 (sec) %5(msec) \r\n").arg(state).arg(QTime::currentTime().hour()).arg(QTime::currentTime().minute()).arg(QTime::currentTime().second()).arg(QTime::currentTime().msec());
         logFile.write(QByteArray::fromStdString(firstLine.toStdString()));
+
         for (int i=0;i<axh.size();i++){
             QString line = QString("%1,%2,%3,%4,%5,%6,%7,%8,%9 \r\n").arg(axh[i]).arg(ayh[i]).arg(azh[i]).arg(gxh[i]).arg(gyh[i]).arg(gzh[i]).arg(magxh[i]).arg(magyh[i]).arg(magzh[i]);
             logFile.write(QByteArray::fromStdString(line.toStdString()));
