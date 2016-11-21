@@ -17,35 +17,24 @@ void imuWorker::processData(QString imuText)
     QStringList angles= imuText.split(rx,QString::SkipEmptyParts);
     if (!angles.contains("#YPR")){
         cout << angles.size() << endl;
-
-        /*
-        axh.append(angles.at(ai+1));
-        ayh.append(angles.at(ai+2));
-        azh.append(angles.at(ai+3));
-        gxh.append(angles.at(gi+1));
-        gyh.append(angles.at(gi+2));
-        gzh.append(angles.at(gi+3));
-        magxh.append(angles.at(mi+1));
-        magyh.append(angles.at(mi+2));
-        magzh.append(angles.at(mi+3));*/
         if (angles.contains("#A-R")){
             int ai = angles.indexOf("#A-R");
-            cout << "ax" << angles.at(ai+1).toStdString() << endl;
-            cout << "ay" << angles.at(ai+2).toStdString() << endl;
-            cout << "az" << angles.at(ai+3).toStdString() << endl;
+            axh.append(angles.at(ai+1));
+            ayh.append(angles.at(ai+2));
+            azh.append(angles.at(ai+3));
         }
         if (angles.contains("#G-R")){
             int gi = angles.indexOf("#G-R");
-            cout << "gx" << angles.at(gi+1).toStdString() << endl;
-            cout << "gy" << angles.at(gi+2).toStdString() << endl;
-            cout << "gz" << angles.at(gi+3).toStdString() << endl;
+            gxh.append(angles.at(gi+1));
+            gyh.append(angles.at(gi+2));
+            gzh.append(angles.at(gi+3));
         }
 
         if (angles.contains("#M-R")){
             int mi = angles.indexOf("#M-R");
-            cout << "magx" << angles.at(mi+1).toStdString() << endl;
-            cout << "magy" << angles.at(mi+2).toStdString() << endl;
-            cout << "magz" << angles.at(mi+3).toStdString() << endl;
+            magxh.append(angles.at(mi+1));
+            magyh.append(angles.at(mi+2));
+            magzh.append(angles.at(mi+3));
         }
 
 
