@@ -30,22 +30,22 @@ void imuWorker::processData(QString imuText)
         magzh.append(angles.at(mi+3));*/
         if (angles.contains("#A-R")){
             int ai = angles.indexOf("#A-R");
-            cout << "ax" << angles.at(ai+1);
-            cout << "ay" << angles.at(ai+2);
-            cout << "az" << angles.at(ai+3);
+            cout << "ax" << angles.at(ai+1).toStdString() << endl;
+            cout << "ay" << angles.at(ai+2).toStdString() << endl;
+            cout << "az" << angles.at(ai+3).toStdString() << endl;
         }
         if (angles.contains("#G-R")){
             int gi = angles.indexOf("#G-R");
-            cout << "gx" << angles.at(gi+1);
-            cout << "gy" << angles.at(gi+2);
-            cout << "gz" << angles.at(gi+3);
+            cout << "gx" << angles.at(gi+1).toStdString() << endl;
+            cout << "gy" << angles.at(gi+2).toStdString() << endl;
+            cout << "gz" << angles.at(gi+3).toStdString() << endl;
         }
 
         if (angles.contains("#M-R")){
             int mi = angles.indexOf("#M-R");
-            cout << "magx" << angles.at(mi+1);
-            cout << "magy" << angles.at(mi+2);
-            cout << "magz" << angles.at(mi+3);
+            cout << "magx" << angles.at(mi+1).toStdString() << endl;
+            cout << "magy" << angles.at(mi+2).toStdString() << endl;
+            cout << "magz" << angles.at(mi+3).toStdString() << endl;
         }
 
 
