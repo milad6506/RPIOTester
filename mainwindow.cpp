@@ -42,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent) :
     imuProcessor = new imuWorker;
     connect(imuProcessingThread,SIGNAL(finished()),imuProcessor,SLOT(deleteLater()));
     connect(this,SIGNAL(dataReady(QString)),imuProcessor,SLOT(processData(QString)),Qt::QueuedConnection);
+    connect(this,SIGNAL(savingState(QString)),imuProcessor,SLOT(saveData(QString)));
 }
 
 MainWindow::~MainWindow()
@@ -49,6 +50,8 @@ MainWindow::~MainWindow()
     delete ui;
     IMU->close();
     delete IMU;
+    imuProcessingThread->quit();
+
 
 }
 
@@ -59,18 +62,14 @@ void MainWindow::on_i2tcheck_clicked()
 
         cout << IMU->open(QIODevice::ReadWrite) << "port openning state" << endl;
         IMUButton = true;
-        qDebug() << 0;
         imuProcessingThread->start();
 
-        qDebug() << 1;
 
     }else{
         while (IMU->canReadLine()) {
         }
         IMU->close();
         IMUButton = false;
-        qDebug() << 2;
-        imuProcessingThread->quit();
 
     }
 

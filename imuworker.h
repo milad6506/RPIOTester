@@ -3,6 +3,9 @@
 
 #include <QObject>
 #include <QFile>
+#include <QList>
+#include <QString>
+
 
 class imuWorker : public QObject
 {
@@ -11,6 +14,8 @@ class imuWorker : public QObject
     // variables
     QString ax= "a",ay= "a",az= "a",magx= "a",magy= "a",magz= "a",gx= "a",gy= "a",gz = "a";
     // variables
+    QList<QString> axh,ayh,azh,gxh,gyh,gzh,magxh,magyh,magzh;
+
 public:
     explicit imuWorker(QObject *parent = 0);
 
