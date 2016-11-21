@@ -83,21 +83,12 @@ void MainWindow::showIMUData()
     while (IMU->canReadLine()){
         imudata.append(IMU->readLine());
     }
-
-
-    //QByteArray dataEnd = "\r\n";
-    //if (imudata.contains(dataEnd)){
-        count++;
-        ui->messageNumber->display(count);
-        ui->IMUOutText->setPlainText(QString::fromStdString(imudata.toStdString()));
-        QString tbs = QString::fromStdString(imudata.toStdString());
-        imudata.clear();
-        emit dataReady(tbs);
-
-
-    //}
-
-
+    count++;
+    ui->messageNumber->display(count);
+    ui->IMUOutText->setPlainText(QString::fromStdString(imudata.toStdString()));
+    QString tbs = QString::fromStdString(imudata.toStdString());
+    imudata.clear();
+    emit dataReady(tbs);
 
 }
 

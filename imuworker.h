@@ -15,6 +15,7 @@ class imuWorker : public QObject
     QString ax= "a",ay= "a",az= "a",magx= "a",magy= "a",magz= "a",gx= "a",gy= "a",gz = "a";
     // variables
     QList<QString> axh,ayh,azh,gxh,gyh,gzh,magxh,magyh,magzh;
+    int minHistory();
 
 public:
     explicit imuWorker(QObject *parent = 0);

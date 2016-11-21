@@ -5,6 +5,27 @@
 
 using namespace std;
 
+int imuWorker::minHistory()
+{
+    QList <int> sizes;
+    sizes.append(axh.size());
+    sizes.append(ayh.size());
+    sizes.append(azh.size());
+    sizes.append(gxh.size());
+    sizes.append(gyh.size());
+    sizes.append(gzh.size());
+    sizes.append(magxh.size());
+    sizes.append(magyh.size());
+    sizes.append(magzh.size());
+    int minh = sizes[0];
+    for (int i=1;i< sizes.size();i++ ){
+        if (sizes[i] < minh){
+            minh = sizes[i];
+        }
+    }
+    return minh;
+}
+
 imuWorker::imuWorker(QObject *parent) : QObject(parent)
 {
 
@@ -54,8 +75,8 @@ void imuWorker::saveData(QString state)
         logFile.open(QFile::ReadWrite);
         QString firstLine = QString("log data name = %1 started at %2 (h) %3 (m) %4 (sec) %5(msec) \r\n").arg(state).arg(QTime::currentTime().hour()).arg(QTime::currentTime().minute()).arg(QTime::currentTime().second()).arg(QTime::currentTime().msec());
         logFile.write(QByteArray::fromStdString(firstLine.toStdString()));
-
-        for (int i=0;i<axh.size();i++){
+        int minCount = minHistory();
+        for (int i=0;i<minCount;i++){
             QString line = QString("%1,%2,%3,%4,%5,%6,%7,%8,%9 \r\n").arg(axh[i]).arg(ayh[i]).arg(azh[i]).arg(gxh[i]).arg(gyh[i]).arg(gzh[i]).arg(magxh[i]).arg(magyh[i]).arg(magzh[i]);
             logFile.write(QByteArray::fromStdString(line.toStdString()));
         }
